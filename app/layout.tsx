@@ -1,14 +1,11 @@
 import "./globals.css"
-import { Inter as FontSans } from "next/font/google"
+import { Josefin_Sans } from "next/font/google"
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils"
 import { AuroraBackground } from "@/components/ui/aurora-background";
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
+const font = Josefin_Sans({ weight: ['400'], style: "normal", subsets: ["latin"] });
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -16,8 +13,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased dark",
-          fontSans.variable
+          "min-h-screen bg-background antialiased dark",
+          font.className
         )}
       >
         {children}

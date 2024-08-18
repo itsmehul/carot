@@ -12,7 +12,7 @@
     --popover-foreground: 45 100% 96%;
     --primary: 270 50% 40%;
     --primary-foreground: 45 100% 96%;
-    --secondary: 0 60% 35%;
+    --secondary: 350 64% 21%;
     --secondary-foreground: 45 100% 96%;
     --muted: 250 30% 20%;
     --muted-foreground: 45 20% 80%;
@@ -25,7 +25,7 @@
     --ring: 270 50% 40%;
     --radius: 0.5rem;
     --chart-1: 270 70% 50%;
-    --chart-2: 0 60% 35%;
+    --chart-2: 350 64% 21%;
     --chart-3: 200 70% 40%;
     --chart-4: 0 70% 50%;
     --chart-5: 300 60% 50%;
@@ -40,7 +40,7 @@
     --popover-foreground: 45 100% 96%;
     --primary: 270 60% 50%;
     --primary-foreground: 45 100% 96%;
-    --secondary: 0 70% 45%;
+    --secondary: 350 64% 26%;
     --secondary-foreground: 45 100% 96%;
     --muted: 250 30% 15%;
     --muted-foreground: 45 20% 80%;
@@ -52,7 +52,7 @@
     --input: 250 30% 20%;
     --ring: 270 60% 50%;
     --chart-1: 270 80% 60%;
-    --chart-2: 0 70% 45%;
+    --chart-2: 350 64% 26%;
     --chart-3: 200 80% 50%;
     --chart-4: 0 80% 60%;
     --chart-5: 300 70% 60%;
