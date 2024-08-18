@@ -37,10 +37,10 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-4 sm:p-8 md:p-16 lg:p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center">
       <Vortex
         backgroundColor="black"
-        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
+        className="flex items-center flex-col justify-center w-full h-full p-2"
       >
         <Card className="w-full max-w-2xl bg-[#1610349c] backdrop-blur-md">
           <CardHeader >
