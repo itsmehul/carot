@@ -1,22 +1,34 @@
 'use client'
 
 import { Instructions } from "@/components/instructions";
-import { AuroraBackground } from "@/components/ui/aurora-background";
-import { BackgroundGradient } from "@/components/ui/background-gradient";
+import { Vortex } from "@/components/ui/vortex";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Vortex } from "@/components/ui/vortex";
 import getCardMeaning, { Suit, CardValue } from "@/lib/get-card-meaning";
-import { motion } from "framer-motion";
 import { useState } from "react";
+
+type CardInfo = {
+  upright: string;
+  reversed: string;
+  description: string;
+  person: string;
+  love: string;
+  career: string;
+  yes_or_no: string;
+};
+
+type ReadingOption = 'person' | 'love' | 'career' | 'yes_or_no';
 
 export default function Home() {
   const [selectedSuit, setSelectedSuit] = useState<Suit | null>(null);
   const [selectedValue, setSelectedValue] = useState<CardValue | null>(null);
-  const [cardInfo, setCardInfo] = useState<{ meaning: string, context: string } | null>(null);
+  const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
+  const [selectedReadingOption, setSelectedReadingOption] = useState<ReadingOption>('yes_or_no');
 
   const suits: Suit[] = ['♠️', '♥️', '♣️', '♦️'];
-  const values: CardValue[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'Joker'];
+  const values: CardValue[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const readingOptions: ReadingOption[] = ['person', 'love', 'career', 'yes_or_no'];
 
   const handleSuitClick = (suit: Suit) => {
     setSelectedSuit(suit);
@@ -30,10 +42,18 @@ export default function Home() {
   const handleValueClick = (value: CardValue) => {
     setSelectedValue(value);
     if (selectedSuit) {
-      setCardInfo(getCardMeaning(value, selectedSuit || '♠️'));
+      setCardInfo(getCardMeaning(value, selectedSuit));
     } else {
       setCardInfo(null);
     }
+  };
+
+  const toggleReversed = () => {
+    setIsReversed(!isReversed);
+  };
+
+  const handleReadingOptionChange = (option: ReadingOption) => {
+    setSelectedReadingOption(option);
   };
 
   return (
@@ -43,9 +63,9 @@ export default function Home() {
         className="flex items-center flex-col justify-center w-full h-full p-2"
       >
         <Card className="w-full max-w-2xl bg-[#1610349c] backdrop-blur-md">
-          <CardHeader >
+          <CardHeader>
             <div className="flex justify-between">
-              <CardTitle className="text-2xl sm:text-3xl">Carot</CardTitle>
+              <CardTitle className="text-2xl sm:text-3xl">Tarot</CardTitle>
               <Instructions />
             </div>
           </CardHeader>
@@ -82,12 +102,55 @@ export default function Home() {
               </div>
             </div>
 
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold mb-3">Reading Focus</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {readingOptions.map((option) => (
+                  <Button
+                    key={option}
+                    onClick={() => handleReadingOptionChange(option)}
+                    variant={selectedReadingOption === option ? "default" : "outline"}
+                    className="capitalize"
+                  >
+                    {option.replace('_', ' ')}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
             {cardInfo && (
               <div className="mt-6">
                 <h2 className="text-xl font-semibold mb-3">Card Meaning</h2>
+                <Button
+                  onClick={toggleReversed}
+                  variant="outline"
+                  className="mb-3"
+                >
+                  {isReversed ? "Reversed Meaning" : "Standard Meaning"}
+                </Button>
+                <small className="ml-2">click to show {isReversed ? "upright" : "reversed"} meaning</small>
                 <div className="bg-secondary p-4 rounded-lg">
-                  <p className="text-lg sm:text-xl font-semibold mb-2">{cardInfo.meaning}</p>
-                  <p className="text-base sm:text-lg">{cardInfo.context}</p>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2">
+                    {isReversed ? "Reversed Meaning" : "Standard Meaning"}:
+                  </h3>
+                  <p className="text-base sm:text-lg mb-4">
+                    {isReversed ? cardInfo.reversed : cardInfo.upright}
+                  </p>
+                  <h3 className="text-lg font-semibold mb-2">Description:</h3>
+                  <p className="text-base sm:text-lg mb-4">{cardInfo.description}</p>
+                  <h3 className="text-lg font-semibold mb-2 capitalize">{selectedReadingOption.replace('_', ' ')} Interpretation:</h3>
+                  {selectedReadingOption === 'person' && (
+                    <p className="text-base sm:text-lg">{cardInfo.person}</p>
+                  )}
+                  {selectedReadingOption === 'love' && (
+                    <p className="text-base sm:text-lg">{cardInfo.love}</p>
+                  )}
+                  {selectedReadingOption === 'career' && (
+                    <p className="text-base sm:text-lg">{cardInfo.career}</p>
+                  )}
+                  {selectedReadingOption === 'yes_or_no' && (
+                    <p className="text-base sm:text-lg">{cardInfo.yes_or_no}</p>
+                  )}
                 </div>
               </div>
             )}
