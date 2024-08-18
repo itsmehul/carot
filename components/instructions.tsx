@@ -15,72 +15,111 @@ export function Instructions() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Instructions</Button>
+        {/* <Button variant="outline">Instructions</Button> */}
+        <button className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+          Instructions
+        </button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-xl">
           <DrawerHeader>
             <DrawerTitle>Tarot Card Guide</DrawerTitle>
-            <DrawerDescription>How to use the cards and understand the suits</DrawerDescription>
+            <DrawerDescription>How to use playing cards for tarot readings</DrawerDescription>
           </DrawerHeader>
           <div className="p-4 pb-0 space-y-6 overflow-y-auto max-h-[60vh]">
             <section>
-              <h3 className="font-semibold text-lg mb-2">How to use the cards in spreads</h3>
-              <p className="text-sm mb-3">
-                Feel free to experiment with your own spreads and to use tarot spreads with these cards.
-              </p>
+              <h3 className="font-semibold text-lg mb-2">Reading Techniques</h3>
               <div className="space-y-3">
                 <div>
-                  <h4 className="font-medium">For "yes" or "no" questions:</h4>
+                  <h4 className="font-medium">Yes/No Questions</h4>
                   <p className="text-sm">
-                    You can use the color of the suits to find the answer. First, pull 5 cards. Look at the line of 5. If the majority of the cards are red suits then it's a "yes." If the majority of the cards are black suits, then it's a "no."
+                    Pull 5 cards. Majority red suits = Yes, majority black suits = No.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium">For the full tea:</h4>
+                  <h4 className="font-medium">Full Reading</h4>
                   <p className="text-sm">
-                    Start pulling 12 cards counterclockwise to see how the story will progress. The card at 12 and 6 o'clock will show the possible outcomes, so pay attention to those. The 9 and 3 o'clock positions are the past and present situations pertaining to your question.
+                    Pull 12 cards counterclockwise. 12 and 6 o'clock show possible outcomes. 9 and 3 o'clock represent past and present.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium">For a quick answer:</h4>
+                  <h4 className="font-medium">Quick Answer</h4>
                   <p className="text-sm">
-                    You can always pull one card for a minor understanding of a matter. Just be sure to interpret the card to its full capacity.
+                    Pull one card for a minor understanding of a matter.
                   </p>
                 </div>
               </div>
             </section>
             <section>
-              <h3 className="font-semibold text-lg mb-2">What the suits mean</h3>
+              <h3 className="font-semibold text-lg mb-2">Understanding the Suits</h3>
               <p className="text-sm mb-3">
-                If you're familiar with traditional tarot, you can use this guide to relate playing cards to the tarot deck. To understand more about tarot cards and what they mean, head here.
+                Playing cards can be used as a substitute for traditional tarot cards. Here's how the suits correspond:
               </p>
               <div className="space-y-3">
                 <div>
-                  <h4 className="font-medium">♠️ Spades</h4>
+                  <h4 className="font-medium">♥️ Hearts (Cups)</h4>
                   <p className="text-sm">
-                    Similar to the sword suit in a tarot deck. The spade suit represents communication and challenges.
+                    Represents water element. Depicts emotions, relationships, intuition, and family.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium">♥️ Hearts</h4>
+                  <h4 className="font-medium">♠️ Spades (Swords)</h4>
                   <p className="text-sm">
-                    Similar to the cups suit in a tarot deck. The heart suit depicts emotions, family, home, and relationships.
+                    Represents air element. Symbolizes thoughts, communication, fears, and anxieties.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium">♣️ Clubs</h4>
+                  <h4 className="font-medium">♦️ Diamonds (Pentacles)</h4>
                   <p className="text-sm">
-                    Similar to the wands suit in a tarot deck. The club suit defines change and action that's swiftly coming.
+                    Represents earth element. Relates to finances, work, health, and material aspects.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium">♦️ Diamonds</h4>
+                  <h4 className="font-medium">♣️ Clubs (Wands)</h4>
                   <p className="text-sm">
-                    Similar to the disks or pentacles suit in a tarot deck. The diamond suit is all about money, confidence, and finances.
+                    Represents fire element. Signifies projects, passions, motivation, and inspiration.
                   </p>
                 </div>
               </div>
+            </section>
+            <section>
+              <h3 className="font-semibold text-lg mb-2">Court Cards and Special Cards</h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-medium">King</h4>
+                  <p className="text-sm">
+                    Represents authority figures, protectors, and paternal energy.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Queen</h4>
+                  <p className="text-sm">
+                    Symbolizes motherly figures, matriarchal energy, caregivers, and nurturers.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Jack</h4>
+                  <p className="text-sm">
+                    Combines the energy of both Knight and Page from traditional tarot.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Joker</h4>
+                  <p className="text-sm">
+                    Equivalent to the Fool card, representing new beginnings and the start of a journey.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h3 className="font-semibold text-lg mb-2">Tips for Reading</h3>
+              <ul className="list-disc list-inside text-sm space-y-2">
+                <li>Rely on your knowledge of suit and number meanings</li>
+                <li>Use intuition to interpret Jack as either Knight or Page energy</li>
+                <li>Remember that Major Arcana are not directly represented</li>
+                <li>Consider adding numbers of multiple cards to reference Major Arcana meanings</li>
+              </ul>
             </section>
           </div>
           <DrawerFooter>
