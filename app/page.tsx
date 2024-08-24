@@ -1,10 +1,11 @@
 'use client'
 
 import { Instructions } from "@/components/instructions";
-import { Vortex } from "@/components/ui/vortex";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import getCardMeaning, { Suit, CardValue } from "@/lib/get-card-meaning";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Vortex } from "@/components/ui/vortex";
+import getCardMeaning, { CardValue, Suit } from "@/lib/get-card-meaning";
 import { useState } from "react";
 
 type CardInfo = {
@@ -25,6 +26,8 @@ export default function Home() {
   const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
   const [isReversed, setIsReversed] = useState<boolean>(false);
   const [selectedReadingOption, setSelectedReadingOption] = useState<ReadingOption>('yes_or_no');
+  const [dateInput, setDateInput] = useState<string>("");
+  const [randomCard, setRandomCard] = useState<{ suit: Suit, value: CardValue } | null>(null);
 
   const suits: Suit[] = ['♠️', '♥️', '♣️', '♦️'];
   const values: CardValue[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -56,17 +59,99 @@ export default function Home() {
     setSelectedReadingOption(option);
   };
 
+  const calculateDateSum = (dateString: string): number => {
+    return dateString.split('').reduce((sum, digit) => {
+      const num = parseInt(digit);
+      return isNaN(num) ? sum : sum + num;
+    }, 0);
+  };
+
+  const getRandomCard = (seed: number): { suit: Suit, value: CardValue } => {
+    const rng = (max: number) => {
+      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      return seed % max;
+    };
+
+    const randomSuit = suits[rng(suits.length)];
+    const randomValue = values[rng(values.length)];
+
+    return { suit: randomSuit, value: randomValue };
+  };
+
+  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Allow only numbers and forward slashes
+    if (/^[\d/]*$/.test(value)) {
+      setDateInput(value);
+    }
+  };
+
+  const handleDateInputBlur = () => {
+    // Validate date format (DD/MM/YYYY)
+    const dateRegex = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    if (dateRegex.test(dateInput)) {
+      const dateSum = calculateDateSum(dateInput);
+      const newRandomCard = getRandomCard(dateSum);
+      setRandomCard(newRandomCard);
+      setSelectedSuit(newRandomCard.suit);
+      setSelectedValue(newRandomCard.value);
+      setCardInfo(getCardMeaning(newRandomCard.value, newRandomCard.suit));
+    } else {
+      // Clear the input if the date is invalid
+      setDateInput("");
+      setRandomCard(null);
+    }
+  };
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <Vortex
         backgroundColor="black"
         className="flex items-center flex-col justify-center w-full h-full p-2"
       >
+        <Card className="w-full max-w-2xl bg-[#1610349c] backdrop-blur-md my-5">
+          <CardHeader>
+            <div className="flex justify-between">
+              <CardTitle className="text-2xl sm:text-3xl">Randomize</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-5">
+              <div>
+                <label htmlFor="dateInput" className="block text-sm font-medium text-gray-700 mb-1">
+                  Enter your date (DD/MM/YYYY)
+                </label>
+                <Input
+                  id="dateInput"
+                  type="text"
+                  placeholder="DD/MM/YYYY"
+                  value={dateInput}
+                  onChange={handleDateInputChange}
+                  onBlur={handleDateInputBlur}
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <h1 className="text-xl font-semibold mb-3">Your Card</h1>
+                {randomCard ? (
+                  <p className="text-lg">
+                    {randomCard.value} of {randomCard.suit}
+                  </p>
+                ) : (
+                  <p className="text-lg text-gray-500">Enter a valid date to generate a card based on numerology calculations</p>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
         <Card className="w-full max-w-2xl bg-[#1610349c] backdrop-blur-md">
           <CardHeader>
             <div className="flex justify-between">
-              <CardTitle className="text-2xl sm:text-3xl">Tarot</CardTitle>
-              <Instructions />
+              <CardTitle className="text-2xl sm:text-3xl">Handbook</CardTitle>
+              <div className="flex gap-2 items-center">
+                <Instructions />
+              </div>
             </div>
           </CardHeader>
           <CardContent>
@@ -112,12 +197,11 @@ export default function Home() {
                     variant={selectedReadingOption === option ? "default" : "outline"}
                     className="capitalize"
                   >
-                    {option.replace('_', ' ')}
+                    {option.replaceAll('_', ' ')}
                   </Button>
                 ))}
               </div>
             </div>
-
             {cardInfo && (
               <div className="mt-6">
                 <h2 className="text-xl font-semibold mb-3">Card Meaning</h2>
@@ -156,6 +240,7 @@ export default function Home() {
             )}
           </CardContent>
         </Card>
+
       </Vortex>
     </main>
   );
