@@ -32,6 +32,15 @@ export function Instructions() {
               <h3 className="font-semibold text-md mb-2">Reading Techniques</h3>
               <div className="space-y-3">
                 <div>
+                  <h4 className="font-medium underline">Question about a person</h4>
+                  <ol className="text-sm list-decimal list-inside">
+                    <li>Set the reading focus to 'Person'</li>
+                    <li>Shuffle the deck</li>
+                    <li>Pull a card</li>
+                    <li>Input the card you get to find its meaning</li>
+                  </ol>
+                </div>
+                <div>
                   <h4 className="font-medium underline">Yes/No Questions</h4>
                   <ol className="text-sm list-decimal list-inside">
                     <li>Think of a question</li>

@@ -110,6 +110,7 @@ export default function Home() {
         backgroundColor="black"
         className="flex items-center flex-col justify-center w-full h-full p-2"
       >
+        <h1 className="text-5xl font-extrabold mt-5">Carot</h1>
         <Card className="w-full max-w-2xl bg-[#1610349c] backdrop-blur-md my-5">
           <CardHeader>
             <div className="flex justify-between">
@@ -240,7 +241,10 @@ export default function Home() {
             )}
           </CardContent>
         </Card>
-
+        <p className="text-center mt-5 text-xs">
+          Made with ❤️ By{" "}
+          <a href="https://www.linkedin.com/in/mrgawde/">Mehul Gawde</a>
+        </p>
       </Vortex>
     </main>
   );
