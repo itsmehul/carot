@@ -111,6 +111,7 @@ export default function Home() {
         className="flex items-center flex-col justify-center w-full h-full p-2"
       >
         <h1 className="text-5xl font-extrabold mt-5">Carot</h1>
+        <p className="max-w-md w-full text-center font-thin opacity-85">You may randomize a card and then use the handbook for reference, or pull a card from your own deck</p>
         <Card className="w-full max-w-2xl bg-[#1610349c] backdrop-blur-md my-5">
           <CardHeader>
             <div className="flex justify-between">
@@ -242,7 +243,7 @@ export default function Home() {
           </CardContent>
         </Card>
         <p className="text-center mt-5 text-xs">
-          Made with ❤️ By{" "}
+          Made with ❤️ by{" "}
           <a href="https://www.linkedin.com/in/mrgawde/">Mehul Gawde</a>
         </p>
       </Vortex>
